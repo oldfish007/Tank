@@ -9,6 +9,8 @@ import java.awt.event.WindowEvent;
 
 public class TFrame extends Frame {
 
+	private int x;
+	private int y;
 	public TFrame() {
 		setSize(800, 600);
 		setResizable(false);
@@ -31,7 +33,9 @@ public class TFrame extends Frame {
 	@Override
 	public void paint(Graphics g) {
 		
-		g.fillRect(200, 200, 50, 50);
+		g.fillRect(x, y, 50, 50);
+		x+=10;
+		y+=10;
 	}
 	
 	

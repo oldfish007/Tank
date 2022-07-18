@@ -4,7 +4,7 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class TankFrame {
+public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
