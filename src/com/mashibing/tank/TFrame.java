@@ -13,6 +13,8 @@ public class TFrame extends Frame {
 
 	private int x=200;
 	private int y=200;
+	Dir dir = Dir.DOWN;
+	private static final int SPEED=10;
 	public TFrame() {
 		setSize(800, 600);
 		setResizable(false);
@@ -35,23 +37,85 @@ public class TFrame extends Frame {
  */
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("paint");
 		g.fillRect(x, y, 50, 50);
-		x+=10;
-		//y+=10;
+		switch(dir) {
+		case LEFT:
+			x-=SPEED;
+			break;
+		case RIGTHT:
+			x+=SPEED;
+			break;
+		case UP:
+			y-=SPEED;
+			break;
+		case DOWN:
+			y+=SPEED;
+			break;
+		}
 	}
 	
 	class MyKeyListener extends KeyAdapter{
-
+		boolean bL = false;
+		boolean bU = false;
+		boolean bR = false;
+		boolean bD = false;
+		
+		
 		@Override
 		public void keyPressed(KeyEvent e) {
 				
-			
+			int keyCode = e.getKeyCode();
+			switch (keyCode) {
+			case KeyEvent.VK_LEFT:
+				bL=true;
+				break;
+			case KeyEvent.VK_RIGHT:
+				bR = true;
+				break;
+			case KeyEvent.VK_UP:
+				bU = true;
+				break;
+			case KeyEvent.VK_DOWN:
+				bD = true;
+				break;
+			default:
+				break;
+			}
+			setMainTankDir();
 		}
-
+/**
+ * 根据按键的状态改变坦克的方向，根据坦克的方向进行坦克的移动
+ */
 		@Override
 		public void keyReleased(KeyEvent e) {
-			System.out.println("key released");
+			
+			int keyCode = e.getKeyCode();
+			switch (keyCode) {
+			case KeyEvent.VK_LEFT:
+				bL=false;
+				break;
+			case KeyEvent.VK_RIGHT:
+				bR = false;
+				break;
+			case KeyEvent.VK_UP:
+				bU = false;
+				break;
+			case KeyEvent.VK_DOWN:
+				bD = false;
+				break;
+			default:
+				break;
+			}
+			setMainTankDir();
+		}
+
+		
+		private void setMainTankDir() {
+			
+			if(bL) dir = Dir.LEFT;
+			if(bR) dir = Dir.RIGTHT;
+			if(bD) dir = Dir.DOWN;
+			if(bU) dir = Dir.UP;
 		}
 		
 		

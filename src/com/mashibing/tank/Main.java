@@ -11,7 +11,7 @@ public class Main {
 		TFrame tf = new TFrame();
 		while(true) {
 			try {
-				Thread.sleep(200);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
