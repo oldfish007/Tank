@@ -9,6 +9,15 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		TFrame tf = new TFrame();
+		while(true) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			tf.repaint();
+		}
 		
 		
 		
