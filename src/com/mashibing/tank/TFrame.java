@@ -34,32 +34,42 @@ public class TFrame extends Frame {
 /**
  *窗口重新绘制的时候 需要用这个方法
  *系统递给你的画笔
+ *每paint 就重绘一次
+ *根据坦克的方向进行坦克的移动
  */
 	@Override
 	public void paint(Graphics g) {
 		g.fillRect(x, y, 50, 50);
 		switch(dir) {
-		case LEFT:
-			x-=SPEED;
-			break;
-		case RIGTHT:
-			x+=SPEED;
-			break;
-		case UP:
-			y-=SPEED;
-			break;
-		case DOWN:
-			y+=SPEED;
-			break;
+			case LEFT:
+				x-=SPEED;
+				break;
+			case RIGTHT:
+				x+=SPEED;
+				break;
+			case UP:
+				y-=SPEED;
+				break;
+			case DOWN:
+				y+=SPEED;
+				break;
 		}
 	}
 	
+/**
+ * 根据按键的状态用4个bool值记录下来	
+ * @author zxh
+ *
+ */
 	class MyKeyListener extends KeyAdapter{
 		boolean bL = false;
 		boolean bU = false;
 		boolean bR = false;
 		boolean bD = false;
-		
+	/**
+	 * 根据按键获取方向，根据方向获取主站坦克的方向
+	 * 根据主战坦克的方向获取移动的方向	
+	 */
 		
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -81,9 +91,10 @@ public class TFrame extends Frame {
 			default:
 				break;
 			}
+			//按下按键后决定主战坦克的方向
 			setMainTankDir();
 		}
-/**
+/**根据按键改变主战坦克的方向
  * 根据按键的状态改变坦克的方向，根据坦克的方向进行坦克的移动
  */
 		@Override
@@ -108,7 +119,7 @@ public class TFrame extends Frame {
 			}
 			setMainTankDir();
 		}
-
+//根据按键的状态改变坦克的方向
 		
 		private void setMainTankDir() {
 			
