@@ -11,10 +11,10 @@ import java.awt.event.WindowEvent;
 
 public class TFrame extends Frame {
 
-	private int x=200;
-	private int y=200;
-	Dir dir = Dir.DOWN;
-	private static final int SPEED=10;
+	//主战坦克
+	Tank myTank = new Tank(200,200,Dir.DOWN);
+	
+	
 	public TFrame() {
 		setSize(800, 600);
 		setResizable(false);
@@ -39,21 +39,7 @@ public class TFrame extends Frame {
  */
 	@Override
 	public void paint(Graphics g) {
-		g.fillRect(x, y, 50, 50);
-		switch(dir) {
-			case LEFT:
-				x-=SPEED;
-				break;
-			case RIGTHT:
-				x+=SPEED;
-				break;
-			case UP:
-				y-=SPEED;
-				break;
-			case DOWN:
-				y+=SPEED;
-				break;
-		}
+		myTank.paint(g);
 	}
 	
 /**
@@ -123,10 +109,10 @@ public class TFrame extends Frame {
 		
 		private void setMainTankDir() {
 			
-			if(bL) dir = Dir.LEFT;
-			if(bR) dir = Dir.RIGTHT;
-			if(bD) dir = Dir.DOWN;
-			if(bU) dir = Dir.UP;
+			if(bL) myTank.setDir(Dir.LEFT);
+			if(bR) myTank.setDir(Dir.RIGTHT);
+			if(bD) myTank.setDir(Dir.DOWN);
+			if(bU) myTank.setDir(Dir.UP);
 		}
 		
 		
