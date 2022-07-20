@@ -14,7 +14,6 @@ public class TFrame extends Frame {
 	//主战坦克
 	Tank myTank = new Tank(200,200,Dir.DOWN);
 	
-	
 	public TFrame() {
 		setSize(800, 600);
 		setResizable(false);
@@ -106,13 +105,20 @@ public class TFrame extends Frame {
 			setMainTankDir();
 		}
 //根据按键的状态改变坦克的方向
-		
+//刚开始是静止的 按下去才走		
 		private void setMainTankDir() {
+			//坦克静止
+			if(!bL && !bU && !bR && !bD) myTank.setMoving(false);
+			else {
+				
+				myTank.setMoving(true);
+				
+				if(bL) myTank.setDir(Dir.LEFT);
+				if(bR) myTank.setDir(Dir.RIGTHT);
+				if(bD) myTank.setDir(Dir.DOWN);
+				if(bU) myTank.setDir(Dir.UP);
+			}
 			
-			if(bL) myTank.setDir(Dir.LEFT);
-			if(bR) myTank.setDir(Dir.RIGTHT);
-			if(bD) myTank.setDir(Dir.DOWN);
-			if(bU) myTank.setDir(Dir.UP);
 		}
 		
 		
