@@ -1,5 +1,6 @@
 package com.mashibing.tank;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Tank {
@@ -7,6 +8,7 @@ public class Tank {
 	private int x,y;
 	private Dir dir = Dir.DOWN;
 	private static final int SPEED=10;
+	private TFrame tf = null;
 	//刚开始的时候moving是静止的 true才会移动
 	private boolean moving = false;
 	
@@ -20,11 +22,12 @@ public class Tank {
 	}
 
 
-	public Tank(int x, int y, Dir dir) {
+	public Tank(int x, int y, Dir dir,TFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.tf = tf;
 	}
 	
 	
@@ -40,10 +43,10 @@ public class Tank {
 
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		Color color = g.getColor();
+		g.setColor(Color.YELLOW);
 		g.fillRect(x, y, 50, 50);
-		
-		
+		g.setColor(color);
 		move();
 	}
 
@@ -64,6 +67,12 @@ public class Tank {
 				y+=SPEED;
 				break;
 		}
+	}
+
+//按下control 实例化界面类的那个子弹
+	public void fire() {
+		// 坦克的坐标 和 坦克的方向 
+		tf.bullet = new Bullet(x, y, dir);
 	}
 	
 
