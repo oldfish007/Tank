@@ -9,6 +9,12 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		TFrame tf = new TFrame();
+		
+		//初始化地方坦克
+		for (int i = 0; i < 5; i++) {
+			tf.enemys.add(new Tank(50+i*30, 200, Dir.DOWN, tf));
+		}
+		
 		while(true) {
 			try {
 				Thread.sleep(50);

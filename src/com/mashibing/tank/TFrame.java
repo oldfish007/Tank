@@ -18,7 +18,8 @@ public class TFrame extends Frame {
 	public static final int GAME_WIDTH=800,GAME_HEIGHT=600;
 	List<Bullet> bullets = new ArrayList<>();
 	//主战坦克
-	Tank myTank = new Tank(200,200,Dir.DOWN,this);
+	Tank myTank = new Tank(200,400,Dir.DOWN,this);
+	List<Tank> enemys = new ArrayList<Tank>();
 	//界面类里面只有一颗子弹
 	//Bullet bullet = new Bullet(300, 300, Dir.DOWN);
 	public TFrame() {
@@ -48,11 +49,25 @@ public class TFrame extends Frame {
 		Color color = g.getColor();
 		g.setColor(Color.white);
 		g.drawString("子弹的数量"+bullets.size(), 10, 60);
+		g.drawString("敌人的数量"+enemys.size(), 10, 80);
 		g.setColor(color);
 		myTank.paint(g);
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).paint(g);
 		}
+		
+		for (int i = 0; i < enemys.size(); i++) {
+			enemys.get(i).paint(g);
+		}
+		
+		//碰撞
+		for (int i = 0; i < bullets.size(); i++) {
+			for(int j=0;j<enemys.size();j++) {
+				bullets.get(i).collideWith(enemys.get(j));
+			}
+		}
+		
+		
 	}
 	
 /**

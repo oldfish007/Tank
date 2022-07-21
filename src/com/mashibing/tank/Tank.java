@@ -11,7 +11,7 @@ public class Tank {
 	private TFrame tf = null;
 	//刚开始的时候moving是静止的 true才会移动
 	private boolean moving = false;
-	
+	private boolean living=true;
 	public static int width=ResourceMgr.tankD.getWidth();
 	public static int height=ResourceMgr.tankD.getHeight();
 	
@@ -45,8 +45,8 @@ public class Tank {
 
 
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		 switch (dir) {
+		if(!living) tf.enemys.remove(this);
+		switch (dir) {
 			case LEFT:
 				g.drawImage(ResourceMgr.tankL, x, y, null);
 				break;
@@ -84,7 +84,27 @@ public class Tank {
 		}
 	}
 
-//按下control 实例化界面类的那个子弹
+public int getX() {
+		return x;
+	}
+
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+
+	public int getY() {
+		return y;
+	}
+
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+
+	//按下control 实例化界面类的那个子弹
 	public void fire() {
 		int bX = this.x+Tank.width/2-Bullet.width/2;
 		int bY = this.y+Tank.height/2-Bullet.height/2;
@@ -92,6 +112,12 @@ public class Tank {
 		// 坦克的坐标 和 坦克的方向 
 		tf.bullets.add(new Bullet(bX, bY, dir,this.tf));
 		 
+	}
+
+
+	public void die() {
+		// TODO Auto-generated method stub
+		this.living=false;
 	}
 	
 

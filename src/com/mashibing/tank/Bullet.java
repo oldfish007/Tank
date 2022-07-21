@@ -2,6 +2,7 @@ package com.mashibing.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Bullet {
 
@@ -10,7 +11,7 @@ public class Bullet {
 	public static int width=ResourceMgr.bulletD.getWidth();
 	public static int height=ResourceMgr.bulletD.getHeight();
 	private Dir dir;
-	private boolean live = true;//子弹的生命
+	private boolean living = true;//子弹的生命
 	TFrame tFrame = null;
 	public Bullet(int x,int y,Dir dir,TFrame tf) {
 		this.x  = x;
@@ -20,7 +21,7 @@ public class Bullet {
 	}
 	
 	public void paint(Graphics g) {
-		if(!live) {
+		if(!living) {
 			this.tFrame.bullets.remove(this);
 		}
 		
@@ -65,6 +66,21 @@ public class Bullet {
 				break;
 		}
 		
-		if(x<0||y<0||x>TFrame.GAME_WIDTH||y>TFrame.GAME_HEIGHT) live =false;
+		if(x<0||y<0||x>TFrame.GAME_WIDTH||y>TFrame.GAME_HEIGHT) living =false;
+	}
+
+	public void collideWith(Tank tank) {
+		Rectangle rect1 = new Rectangle(this.x, this.y, width, height);
+		Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.width, tank.height);
+		if(rect1.intersects(rect2)) {
+			tank.die();
+			this.die();
+		}
+		
+	}
+
+	private void die() {
+		// TODO Auto-generated method stub
+		this.living=false;
 	}
 }
