@@ -72,7 +72,8 @@ public class Tank {
 //按下control 实例化界面类的那个子弹
 	public void fire() {
 		// 坦克的坐标 和 坦克的方向 
-		tf.bullet = new Bullet(x, y, dir);
+		tf.bullets.add(new Bullet(x, y, dir,this.tf));
+		 
 	}
 	
 

@@ -10,14 +10,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TFrame extends Frame {
 
-	private static final int GAME_WIDTH=800,GAME_HEIGHT=600;
+	public static final int GAME_WIDTH=800,GAME_HEIGHT=600;
+	List<Bullet> bullets = new ArrayList<>();
 	//主战坦克
 	Tank myTank = new Tank(200,200,Dir.DOWN,this);
 	//界面类里面只有一颗子弹
-	Bullet bullet = new Bullet(300, 300, Dir.DOWN);
+	//Bullet bullet = new Bullet(300, 300, Dir.DOWN);
 	public TFrame() {
 		setSize(800, 600);
 		setResizable(false);
@@ -42,8 +45,14 @@ public class TFrame extends Frame {
  */
 	@Override
 	public void paint(Graphics g) {
+		Color color = g.getColor();
+		g.setColor(Color.white);
+		g.drawString("子弹的数量"+bullets.size(), 10, 60);
+		g.setColor(color);
 		myTank.paint(g);
-		bullet.paint(g);
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).paint(g);
+		}
 	}
 	
 /**
