@@ -12,6 +12,9 @@ public class Tank {
 	//刚开始的时候moving是静止的 true才会移动
 	private boolean moving = false;
 	
+	public static int width=ResourceMgr.tankD.getWidth();
+	public static int height=ResourceMgr.tankD.getHeight();
+	
 	public boolean isMoving() {
 		return moving;
 	}
@@ -43,10 +46,22 @@ public class Tank {
 
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		Color color = g.getColor();
-		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, 50, 50);
-		g.setColor(color);
+		 switch (dir) {
+			case LEFT:
+				g.drawImage(ResourceMgr.tankL, x, y, null);
+				break;
+			case UP:
+				g.drawImage(ResourceMgr.tankU, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(ResourceMgr.tankD, x, y, null);
+				break;
+			case RIGTHT:
+				g.drawImage(ResourceMgr.tankR, x, y, null);
+				break;
+			default:
+				break;
+		}
 		move();
 	}
 
@@ -71,8 +86,11 @@ public class Tank {
 
 //按下control 实例化界面类的那个子弹
 	public void fire() {
+		int bX = this.x+Tank.width/2-Bullet.width/2;
+		int bY = this.y+Tank.height/2-Bullet.height/2;
+		
 		// 坦克的坐标 和 坦克的方向 
-		tf.bullets.add(new Bullet(x, y, dir,this.tf));
+		tf.bullets.add(new Bullet(bX, bY, dir,this.tf));
 		 
 	}
 	

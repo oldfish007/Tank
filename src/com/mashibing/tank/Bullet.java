@@ -7,7 +7,8 @@ public class Bullet {
 
 	private static final int SPEED=5;
 	private int x,y;
-	private static int width=20,height=20;
+	public static int width=ResourceMgr.bulletD.getWidth();
+	public static int height=ResourceMgr.bulletD.getHeight();
 	private Dir dir;
 	private boolean live = true;//子弹的生命
 	TFrame tFrame = null;
@@ -23,9 +24,27 @@ public class Bullet {
 			this.tFrame.bullets.remove(this);
 		}
 		
-		Color color = g.getColor();
-		g.setColor(Color.RED);
-		g.fillOval(x, y, width, height);
+		/*
+		 * Color color = g.getColor(); g.setColor(Color.RED); g.fillOval(x, y, width,
+		 * height);
+		 */
+		switch (dir) {
+		case LEFT:
+			g.drawImage(ResourceMgr.bulletL, x, y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceMgr.bulletU, x, y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceMgr.bulletD, x, y, null);
+			break;
+		case RIGTHT:
+			g.drawImage(ResourceMgr.bulletR, x, y, null);
+			break;
+		default:
+			break;
+	}
+		
 		move();
 	}
 
