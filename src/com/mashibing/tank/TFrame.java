@@ -18,10 +18,12 @@ public class TFrame extends Frame {
 	public static final int GAME_WIDTH=800,GAME_HEIGHT=600;
 	List<Bullet> bullets = new ArrayList<>();
 	//主战坦克
-	Tank myTank = new Tank(200,400,Dir.DOWN,this);
+	Tank myTank = new Tank(200,400,Dir.DOWN,Group.Good,this);
 	List<Tank> enemys = new ArrayList<Tank>();
 	//界面类里面只有一颗子弹
 	//Bullet bullet = new Bullet(300, 300, Dir.DOWN);
+	Explode e = new Explode(200,300, this);
+	
 	public TFrame() {
 		setSize(800, 600);
 		setResizable(false);
@@ -66,7 +68,7 @@ public class TFrame extends Frame {
 				bullets.get(i).collideWith(enemys.get(j));
 			}
 		}
-		
+		e.paint(g);
 		
 	}
 	

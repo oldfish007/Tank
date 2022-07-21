@@ -3,7 +3,9 @@ package com.mashibing.tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
+/*
+ * 区分的更严格一些就是 敌人的坏炮弹，我方的好炮弹
+ */
 public class Bullet {
 
 	private static final int SPEED=5;
@@ -13,10 +15,24 @@ public class Bullet {
 	private Dir dir;
 	private boolean living = true;//子弹的生命
 	TFrame tFrame = null;
-	public Bullet(int x,int y,Dir dir,TFrame tf) {
+    private Group group = Group.Bad;
+	
+	
+	
+	
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public Bullet(int x,int y,Dir dir,Group group,TFrame tf) {
 		this.x  = x;
 		this.y = y;
 		this.dir=dir;
+		this.group = group;
 		this.tFrame = tf;
 	}
 	
@@ -70,6 +86,9 @@ public class Bullet {
 	}
 
 	public void collideWith(Tank tank) {
+		//如果我们是一波的 就不检测了退出循环
+		if(this.group==tank.getGroup()) return;
+		//TODO 用一个rect来记录子弹的位置
 		Rectangle rect1 = new Rectangle(this.x, this.y, width, height);
 		Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.width, tank.height);
 		if(rect1.intersects(rect2)) {

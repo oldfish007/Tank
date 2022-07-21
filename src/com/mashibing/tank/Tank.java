@@ -2,19 +2,33 @@ package com.mashibing.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Tank {
 
 	private int x,y;
 	private Dir dir = Dir.DOWN;
-	private static final int SPEED=10;
+	private static final int SPEED=1;
 	private TFrame tf = null;
 	//刚开始的时候moving是静止的 true才会移动
-	private boolean moving = false;
+	private boolean moving = true;
+	private Random random = new Random();
 	private boolean living=true;
 	public static int width=ResourceMgr.tankD.getWidth();
 	public static int height=ResourceMgr.tankD.getHeight();
+	private Group group  = Group.Bad;
 	
+	
+	public Group getGroup() {
+		return group;
+	}
+
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+
 	public boolean isMoving() {
 		return moving;
 	}
@@ -25,11 +39,12 @@ public class Tank {
 	}
 
 
-	public Tank(int x, int y, Dir dir,TFrame tf) {
+	public Tank(int x, int y, Dir dir,Group group,TFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group = group;
 		this.tf = tf;
 	}
 	
@@ -82,6 +97,8 @@ public class Tank {
 				y+=SPEED;
 				break;
 		}
+		if(random.nextInt(10) > 5) this.fire();
+		
 	}
 
 public int getX() {
@@ -110,7 +127,7 @@ public int getX() {
 		int bY = this.y+Tank.height/2-Bullet.height/2;
 		
 		// 坦克的坐标 和 坦克的方向 
-		tf.bullets.add(new Bullet(bX, bY, dir,this.tf));
+		tf.bullets.add(new Bullet(bX, bY, dir,this.group,this.tf));
 		 
 	}
 
