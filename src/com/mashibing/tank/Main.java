@@ -10,7 +10,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		TFrame tf = new TFrame();
 		
-		//初始化地方坦克
+		//初始化敌人坦克
 		for (int i = 0; i < 5; i++) {
 			tf.enemys.add(new Tank(50+i*30, 200, Dir.DOWN,Group.Bad, tf));
 		}

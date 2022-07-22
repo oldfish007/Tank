@@ -97,6 +97,7 @@ public class Tank {
 				y+=SPEED;
 				break;
 		}
+		//敌我 都自动
 		if(random.nextInt(10) > 5) this.fire();
 		
 	}

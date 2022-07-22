@@ -15,14 +15,17 @@ import java.util.List;
 
 public class TFrame extends Frame {
 
-	public static final int GAME_WIDTH=800,GAME_HEIGHT=600;
+	public static final int GAME_WIDTH=1080,GAME_HEIGHT=960;
 	List<Bullet> bullets = new ArrayList<>();
 	//主战坦克
 	Tank myTank = new Tank(200,400,Dir.DOWN,Group.Good,this);
+	//敌人的tank集合
 	List<Tank> enemys = new ArrayList<Tank>();
 	//界面类里面只有一颗子弹
 	//Bullet bullet = new Bullet(300, 300, Dir.DOWN);
-	Explode e = new Explode(200,300, this);
+	//爆炸对象
+	//Explode e = new Explode(200,300, this);
+	List<Explode> explodes = new ArrayList<>(); 
 	
 	public TFrame() {
 		setSize(800, 600);
@@ -48,18 +51,23 @@ public class TFrame extends Frame {
  */
 	@Override
 	public void paint(Graphics g) {
+	
 		Color color = g.getColor();
 		g.setColor(Color.white);
 		g.drawString("子弹的数量"+bullets.size(), 10, 60);
 		g.drawString("敌人的数量"+enemys.size(), 10, 80);
+		g.drawString("爆炸的数量"+explodes.size(), 10, 100);
 		g.setColor(color);
 		myTank.paint(g);
+		//画出敌人坦克
+		for (int i = 0; i < enemys.size(); i++) {
+			enemys.get(i).paint(g);
+		}
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).paint(g);
 		}
-		
-		for (int i = 0; i < enemys.size(); i++) {
-			enemys.get(i).paint(g);
+		for (int i = 0; i < explodes.size(); i++) {
+			explodes.get(i).paint(g);
 		}
 		
 		//碰撞
@@ -68,7 +76,6 @@ public class TFrame extends Frame {
 				bullets.get(i).collideWith(enemys.get(j));
 			}
 		}
-		e.paint(g);
 		
 	}
 	
@@ -166,7 +173,6 @@ public class TFrame extends Frame {
 			else {
 				
 				myTank.setMoving(true);
-				
 				if(bL) myTank.setDir(Dir.LEFT);
 				if(bR) myTank.setDir(Dir.RIGTHT);
 				if(bD) myTank.setDir(Dir.DOWN);

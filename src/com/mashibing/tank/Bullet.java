@@ -42,8 +42,10 @@ public class Bullet {
 		}
 		
 		/*
-		 * Color color = g.getColor(); g.setColor(Color.RED); g.fillOval(x, y, width,
-		 * height);
+		 * Color color = g.getColor(); 
+		 * g.setColor(Color.RED);
+		 *  g.fillOval(x, y, width,height);
+		 * 
 		 */
 		switch (dir) {
 		case LEFT:
@@ -94,6 +96,8 @@ public class Bullet {
 		if(rect1.intersects(rect2)) {
 			tank.die();
 			this.die();
+			//碰撞上了以后实例化一个爆炸
+			this.tFrame.explodes.add(new Explode(x, y, tFrame));
 		}
 		
 	}
