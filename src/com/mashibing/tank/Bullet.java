@@ -17,7 +17,7 @@ public class Bullet {
 	TFrame tFrame = null;
     private Group group = Group.Bad;
 	
-	
+	Rectangle rect = new Rectangle();
 	
 	
 	public Group getGroup() {
@@ -34,6 +34,10 @@ public class Bullet {
 		this.dir=dir;
 		this.group = group;
 		this.tFrame = tf;
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = width;
+		rect.height = height;
 	}
 	
 	public void paint(Graphics g) {
@@ -63,7 +67,6 @@ public class Bullet {
 		default:
 			break;
 	}
-		
 		move();
 	}
 
@@ -83,6 +86,8 @@ public class Bullet {
 				y+=SPEED;
 				break;
 		}
+		rect.x = this.x;
+		rect.y = this.y;
 		
 		if(x<0||y<0||x>TFrame.GAME_WIDTH||y>TFrame.GAME_HEIGHT) living =false;
 	}
@@ -91,9 +96,11 @@ public class Bullet {
 		//如果我们是一波的 就不检测了退出循环
 		if(this.group==tank.getGroup()) return;
 		//TODO 用一个rect来记录子弹的位置
-		Rectangle rect1 = new Rectangle(this.x, this.y, width, height);
-		Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.width, tank.height);
-		if(rect1.intersects(rect2)) {
+		/*
+		 * Rectangle rect1 = new Rectangle(this.x, this.y, width, height); Rectangle
+		 * rect2 = new Rectangle(tank.getX(), tank.getY(), tank.width, tank.height);
+		 */		
+		if(rect.intersects(tank.rect)) {
 			tank.die();
 			this.die();
 			int eX = tank.getX()+Tank.width/2-Explode.width/2;
@@ -105,7 +112,6 @@ public class Bullet {
 	}
 
 	private void die() {
-		// TODO Auto-generated method stub
 		this.living=false;
 	}
 }
