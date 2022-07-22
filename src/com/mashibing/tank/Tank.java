@@ -8,7 +8,7 @@ public class Tank {
 
 	private int x,y;
 	private Dir dir = Dir.DOWN;
-	private static final int SPEED=1;
+	private static final int SPEED=5;
 	private TFrame tf = null;
 	//刚开始的时候moving是静止的 true才会移动
 	private boolean moving = true;

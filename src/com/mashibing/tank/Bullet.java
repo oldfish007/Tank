@@ -8,7 +8,7 @@ import java.awt.Rectangle;
  */
 public class Bullet {
 
-	private static final int SPEED=5;
+	private static final int SPEED=8;
 	private int x,y;
 	public static int width=ResourceMgr.bulletD.getWidth();
 	public static int height=ResourceMgr.bulletD.getHeight();
@@ -96,8 +96,10 @@ public class Bullet {
 		if(rect1.intersects(rect2)) {
 			tank.die();
 			this.die();
+			int eX = tank.getX()+Tank.width/2-Explode.width/2;
+			int eY = tank.getY()+Tank.height/2-Explode.height/2;
 			//碰撞上了以后实例化一个爆炸
-			this.tFrame.explodes.add(new Explode(x, y, tFrame));
+			this.tFrame.explodes.add(new Explode(eX, eY, tFrame));
 		}
 		
 	}
