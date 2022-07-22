@@ -97,14 +97,22 @@ public class Tank {
 				y+=SPEED;
 				break;
 		}
-		//敌我 都自动
-		if(random.nextInt(10) > 5) this.fire();
-		
+		//目前的问题是敌我 都自动  发射炮弹 
+		//好炮弹得由玩家控制，坏炮弹随机发射
+		if(this.group == Group.Bad && random.nextInt(100) > 95) 
+			this.fire();
+		if(this.group == Group.Bad && random.nextInt(100) > 95) 
+		  randomDir();
 	}
 
-public int getX() {
-		return x;
+	private void randomDir() {
+		this.dir = Dir.values()[random.nextInt(4)];
 	}
+
+
+	public int getX() {
+			return x;
+		}
 
 
 	public void setX(int x) {

@@ -34,13 +34,11 @@ public class TFrame extends Frame {
 		this.addKeyListener(new MyKeyListener());
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {
-
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
 				System.exit(0);
 			}
-			
 		});
 	}
 /**

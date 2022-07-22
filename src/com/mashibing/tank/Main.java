@@ -12,7 +12,7 @@ public class Main {
 		
 		//初始化敌人坦克
 		for (int i = 0; i < 5; i++) {
-			tf.enemys.add(new Tank(50+i*30, 200, Dir.DOWN,Group.Bad, tf));
+			tf.enemys.add(new Tank(50+i*50, 200, Dir.DOWN,Group.Bad, tf));
 		}
 		
 		while(true) {
