@@ -26,3 +26,30 @@ repaint - update
 用面向对象的思想考虑
 打出一串子弹
 将子弹装在容器中
+
+
+
+1.0.4
+调整效果
+换坦克图片，换炮弹图片
+音乐与音效
+完成爆炸功能
+加入到List中
+显示数量
+敌人坦克简单智能化
+随机移动位置
+随机发射子弹
+边界检测
+解决new Rectangle问题
+MileStone - 里程碑式的版本
+Code Review and Refactoring
+配置文件
+PropertyMgr的单例问题
+答疑
+java - exe jar+jre+tool = exe
+
+作业：
+整理代码
+写出首个设计模式（单例）
+在内存中，如果需要某个类的对象，在程序上保证，有且只有一个该类的对象
+策略模式

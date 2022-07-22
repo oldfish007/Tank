@@ -14,8 +14,8 @@ public class Tank {
 	private boolean moving = true;
 	private Random random = new Random();
 	private boolean living=true;
-	public static int width=ResourceMgr.tankD.getWidth();
-	public static int height=ResourceMgr.tankD.getHeight();
+	public static int width=ResourceMgr.goodTankL.getWidth();
+	public static int height=ResourceMgr.goodTankD.getHeight();
 	private Group group  = Group.Bad;
 	
 	
@@ -63,16 +63,16 @@ public class Tank {
 		if(!living) tf.enemys.remove(this);
 		switch (dir) {
 			case LEFT:
-				g.drawImage(ResourceMgr.tankL, x, y, null);
+				g.drawImage(this.group == Group.Good?ResourceMgr.goodTankL:ResourceMgr.badTankL,x,y,null);
 				break;
 			case UP:
-				g.drawImage(ResourceMgr.tankU, x, y, null);
+				g.drawImage(this.group == Group.Good?ResourceMgr.goodTankU:ResourceMgr.badTankU, x, y, null);
 				break;
 			case DOWN:
-				g.drawImage(ResourceMgr.tankD, x, y, null);
+				g.drawImage(this.group == Group.Good?ResourceMgr.goodTankD:ResourceMgr.badTankD, x, y, null);
 				break;
 			case RIGTHT:
-				g.drawImage(ResourceMgr.tankR, x, y, null);
+				g.drawImage(this.group == Group.Good?ResourceMgr.goodTankR:ResourceMgr.badTankR, x, y, null);
 				break;
 			default:
 				break;
@@ -102,8 +102,24 @@ public class Tank {
 		if(this.group == Group.Bad && random.nextInt(100) > 95) 
 			this.fire();
 		if(this.group == Group.Bad && random.nextInt(100) > 95) 
-		  randomDir();
+		    randomDir();
+		
+		//边界检测
+		boundsCheck();
+		
 	}
+
+	private void boundsCheck() {
+		if(this.group==Group.Good) 
+			System.out.println(x);
+		    System.out.println(y);
+		    
+		if(this.x<2) x = 2;
+	    if(this.y<28) y = 28;
+	    if(this.x>TFrame.GAME_WIDTH-Tank.width-2) x =TFrame.GAME_WIDTH-Tank.width-2;
+	    if(this.y>TFrame.GAME_HEIGHT-Tank.height-2) y = TFrame.GAME_HEIGHT-Tank.height-2;
+	}
+
 
 	private void randomDir() {
 		this.dir = Dir.values()[random.nextInt(4)];
@@ -134,7 +150,6 @@ public class Tank {
 	public void fire() {
 		int bX = this.x+Tank.width/2-Bullet.width/2;
 		int bY = this.y+Tank.height/2-Bullet.height/2;
-		
 		// 坦克的坐标 和 坦克的方向 
 		tf.bullets.add(new Bullet(bX, bY, dir,this.group,this.tf));
 		 

@@ -28,7 +28,7 @@ public class TFrame extends Frame {
 	List<Explode> explodes = new ArrayList<>(); 
 	
 	public TFrame() {
-		setSize(800, 600);
+		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
 		setTitle("tank war");
 		this.addKeyListener(new MyKeyListener());
@@ -39,6 +39,7 @@ public class TFrame extends Frame {
 				// TODO Auto-generated method stub
 				System.exit(0);
 			}
+			
 		});
 	}
 /**
