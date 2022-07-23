@@ -11,8 +11,8 @@ public class Main {
 		TFrame tf = new TFrame();
 		
 		//先实例化5辆tank出来
-		for (int i = 0; i < 5; i++) {
-			tf.enemies.add(new Tank(50+i*50, 200, Dir.DOWN, tf));
+		for (int i = 0; i < 6; i++) {
+			tf.enemies.add(new Tank(50+i*55, 200, Dir.DOWN,Group.BAD, tf));
 		}
 		while(true) {
 			try {

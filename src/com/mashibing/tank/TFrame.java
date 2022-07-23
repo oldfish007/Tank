@@ -15,14 +15,17 @@ import java.util.List;
 
 public class TFrame extends Frame {
 
-	private static final int GAME_WIDTH=1080,GAME_HEIGHT=900;
+	public static final int GAME_WIDTH=1080,GAME_HEIGHT=900;
 	//主战坦克
-	Tank myTank = new Tank(Tank.WIDTH,Tank.HEIGHT,Dir.DOWN,this);
+	Tank myTank = new Tank(200,300,Dir.DOWN,Group.good,this);
 	//敌人坦克编队集合
 	List<Tank> enemies = new ArrayList<>();
 	//射出多颗子弹
 	//Bullet bullet = new Bullet(300, 300, Dir.DOWN);
 	List<Bullet> bullets = new ArrayList<>();
+	
+	List<Explods> explods = new ArrayList<Explods>();
+	//Explods explods = new Explods(50, 60, this);
 	public TFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
@@ -48,8 +51,9 @@ public class TFrame extends Frame {
 	@Override
 	public void paint(Graphics g) {
 		Color color = g.getColor();
-		g.setColor(Color.blue);
+		g.setColor(Color.white);
 		g.drawString("子弹数量为"+bullets.size(), 10, 60);
+		g.drawString("enemy的数量"+enemies.size(), 10, 70);
 		g.setColor(color);
 		myTank.paint(g);
 		
@@ -61,6 +65,18 @@ public class TFrame extends Frame {
 		//界面上要遍历出来敌人的tank才会显示出来
 		for (int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).paint(g);
+		}
+		
+		//碰撞检测 目前是拿出所有bullets集合的炮弹去和enemiesTank包裹的矩形做交集
+		for (int i = 0; i < bullets.size(); i++) {
+			for (int j = 0; j < enemies.size(); j++) {
+				System.out.println(bullets.size());
+				bullets.get(i).collectWith(enemies.get(j));
+			}
+		}
+		//从集合中取出来
+		for (int i = 0; i < explods.size(); i++) {
+			    explods.get(i).paint(g);
 		}
 		
 	}
