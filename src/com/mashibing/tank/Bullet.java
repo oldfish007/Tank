@@ -5,21 +5,37 @@ import java.awt.Graphics;
 
 public class Bullet {
 
-	private static final int SPEED=1;
+	private static final int SPEED=8;
 	private int x,y;
-	private static int width=20,height=20;
+	public static final int WIDTH=ResourceMgr.bulletD.getWidth();
+	public static final int HEIGHT=ResourceMgr.bulletD.getHeight();
 	private Dir dir;
-	
+	private boolean moving=false;
+	private boolean living=true;
 	public Bullet(int x,int y,Dir dir) {
 		this.x  = x;
 		this.y = y;
 		this.dir=dir;
 	}
-	
+//根据主战坦克的方向区分	
 	public void paint(Graphics g) {
-		Color color = g.getColor();
-		g.setColor(Color.RED);
-		g.fillOval(x, y, width, height);
+	
+		switch (dir) {
+		case LEFT:
+			g.drawImage(ResourceMgr.bulletL, x, y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceMgr.bulletU, x, y, null);
+			break;
+		case RIGTHT:
+			g.drawImage(ResourceMgr.bulletR, x, y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceMgr.bulletD, x, y, null);
+			break;
+		default:
+			break;
+		}
 		move();
 	}
 

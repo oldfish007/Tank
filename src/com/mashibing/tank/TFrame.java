@@ -10,16 +10,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TFrame extends Frame {
 
-	private static final int GAME_WIDTH=800,GAME_HEIGHT=600;
+	private static final int GAME_WIDTH=1080,GAME_HEIGHT=900;
 	//主战坦克
-	Tank myTank = new Tank(200,200,Dir.DOWN,this);
-	//界面类里面只有一颗子弹
-	Bullet bullet = new Bullet(300, 300, Dir.DOWN);
+	Tank myTank = new Tank(Tank.WIDTH,Tank.HEIGHT,Dir.DOWN,this);
+	//敌人坦克编队集合
+	List<Tank> enemies = new ArrayList<>();
+	//射出多颗子弹
+	//Bullet bullet = new Bullet(300, 300, Dir.DOWN);
+	List<Bullet> bullets = new ArrayList<>();
 	public TFrame() {
-		setSize(800, 600);
+		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
 		setTitle("tank war");
 		this.addKeyListener(new MyKeyListener());
@@ -42,8 +47,22 @@ public class TFrame extends Frame {
  */
 	@Override
 	public void paint(Graphics g) {
+		Color color = g.getColor();
+		g.setColor(Color.blue);
+		g.drawString("子弹数量为"+bullets.size(), 10, 60);
+		g.setColor(color);
 		myTank.paint(g);
-		bullet.paint(g);
+		
+		//遍历画出炮弹
+		for (int i = 0; i < bullets.size(); i++) {
+			
+			bullets.get(i).paint(g);
+		}
+		//界面上要遍历出来敌人的tank才会显示出来
+		for (int i = 0; i < enemies.size(); i++) {
+			enemies.get(i).paint(g);
+		}
+		
 	}
 	
 /**

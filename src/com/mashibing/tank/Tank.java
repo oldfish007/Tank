@@ -7,11 +7,12 @@ public class Tank {
 
 	private int x,y;
 	private Dir dir = Dir.DOWN;
-	private static final int SPEED=10;
+	private static final int SPEED=5;
 	private TFrame tf = null;
 	//刚开始的时候moving是静止的 true才会移动
 	private boolean moving = false;
-	
+	public static final int WIDTH=ResourceMgr.goodTankL.getWidth();
+	public static final int HEIGHT = ResourceMgr.goodTankL.getHeight();
 	public boolean isMoving() {
 		return moving;
 	}
@@ -40,14 +41,28 @@ public class Tank {
 		this.dir = dir;
 	}
 
-
+/**
+ * 根据坦克的方向确定tank移动的方向
+ * @param g
+ */
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		Color color = g.getColor();
-		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, 50, 50);
-		g.setColor(color);
-		move();
+		
+		//画出tank
+		switch(dir) {
+			case LEFT:
+				g.drawImage(ResourceMgr.goodTankL, x, y, null);
+				break;
+			case UP:
+				g.drawImage(ResourceMgr.goodTankU, x, y, null);
+				break;
+			case RIGTHT:
+				g.drawImage(ResourceMgr.goodTankR, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(ResourceMgr.goodTankD, x, y, null);
+				break;
+		}		
+		    move();
 	}
 
 
@@ -72,7 +87,11 @@ public class Tank {
 //按下control 实例化界面类的那个子弹
 	public void fire() {
 		// 坦克的坐标 和 坦克的方向 
-		tf.bullet = new Bullet(x, y, dir);
+		//从Tank的中心打出炮弹
+		int bX = this.x+Tank.WIDTH/2-Bullet.WIDTH/2;
+		int bY = this.y+Tank.HEIGHT/2-Bullet.HEIGHT/2;
+		Bullet b = new Bullet(bX, bY, dir);
+		tf.bullets.add(b);
 	}
 	
 
