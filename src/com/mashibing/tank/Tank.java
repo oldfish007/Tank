@@ -3,23 +3,24 @@ package com.mashibing.tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 public class Tank {
 
-	private int x,y;
-	private Dir dir = Dir.DOWN;
+	int x,y;
+	 Dir dir = Dir.DOWN;
 	private static final int SPEED=5;
-	private TFrame tf = null;
+	 TFrame tf = null;
 	//刚开始的时候moving是静止的 true才会移动
 	private boolean moving = true;
 	private Random random = new Random();
 	private boolean living=true;
 	public static int width=ResourceMgr.goodTankL.getWidth();
 	public static int height=ResourceMgr.goodTankD.getHeight();
-	private Group group  = Group.Bad;
+	 Group group  = Group.Bad;
 	Rectangle rect = new Rectangle();
-	
+	FireStrategy fs ;
 	public Group getGroup() {
 		return group;
 	}
@@ -51,6 +52,17 @@ public class Tank {
 		rect.y = this.y;
 		rect.width = width;
 		rect.height = height;
+		//我军用四面炮弹
+		if(this.group==Group.Good) {
+			String goodFSName = (String)PropertyMgr.get("goodFS");
+			try {
+				fs = (FireStrategy) Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}else {
+			fs = new DefaultFireStrategy();
+		}	
 	}
 	
 	
@@ -155,10 +167,7 @@ public class Tank {
 
 	//按下control 实例化界面类的那个子弹
 	public void fire() {
-		int bX = this.x+Tank.width/2-Bullet.width/2;
-		int bY = this.y+Tank.height/2-Bullet.height/2;
-		// 坦克的坐标 和 坦克的方向 
-		tf.bullets.add(new Bullet(bX, bY, dir,this.group,this.tf));
+		fs.fire(this);
 		 
 	}
 

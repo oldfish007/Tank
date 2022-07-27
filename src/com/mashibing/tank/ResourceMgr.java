@@ -4,7 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
+/**
+ * 现在还是饿汉式
+ * @author zxh
+ *
+ */
 public class ResourceMgr {
 
 	public static BufferedImage goodTankL, goodTankU, goodTankR, goodTankD;

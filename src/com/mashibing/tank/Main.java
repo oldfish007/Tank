@@ -9,9 +9,9 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		TFrame tf = new TFrame();
-		
+		int count = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
 		//初始化敌人坦克
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < count; i++) {
 			tf.enemys.add(new Tank(50+i*50, 200, Dir.DOWN,Group.Bad, tf));
 		}
 		
