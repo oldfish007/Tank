@@ -55,3 +55,63 @@ java - exe jar+jre+tool = exe
 增加打炮弹的策略模式
 a> 给普通的增加default
 b> 给我军增加四面打炮弹
+
+
+SpringIOC
+Facade
+门面
+Mediator
+调停者
+Decorator
+装饰器
+责任链开头
+
+TF - 解决添加新游戏物体的问题
+1：TF - Facade 门面模式  不用你到处去找 抽象出来的一个类
+Frame - > 展示
+GameModel -> 内部逻辑计算
+2：GameObject
+
+
+spring配置文件
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="d" class="com.mashibing.Driver"></bean>
+    <bean id="tank" class="com.mashibing.Tank">
+        <property name="driver" ref="d"></property>
+    </bean>
+
+</beans>
+
+spring的写法：
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("app.xml");
+
+        //Driver d = (Driver)context.getBean("driver");
+        Tank t = (Tank)context.getBean("tank");
+
+    }
+}
+
+
+名词用抽象类 形容词用抽象接口
+抽象工厂
+顶层抽象GameFactory
+抽象对象
+BaseTank
+BaseBullet
+BaseExplode
+具体工厂
+DefaultFactory
+Rect工厂
+具体工厂RectFactory 
+具体类
+RectTank
+RectBullet
+RectExplode

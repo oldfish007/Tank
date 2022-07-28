@@ -13,19 +13,28 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mashibing.tank.abstractfactory.BaseBullet;
+import com.mashibing.tank.abstractfactory.BaseExplode;
+import com.mashibing.tank.abstractfactory.BaseTank;
+import com.mashibing.tank.abstractfactory.DefaultFactory;
+import com.mashibing.tank.abstractfactory.GameFactory;
+import com.mashibing.tank.abstractfactory.RectFactory;
+
 public class TFrame extends Frame {
 
 	public static final int GAME_WIDTH=1080,GAME_HEIGHT=960;
-	List<Bullet> bullets = new ArrayList<>();
+    public List<BaseBullet> bullets = new ArrayList<>();
 	//主战坦克
 	Tank myTank = new Tank(200,400,Dir.DOWN,Group.Good,this);
 	//敌人的tank集合
-	List<Tank> enemys = new ArrayList<Tank>();
+	public List<BaseTank> enemys = new ArrayList<>();
 	//界面类里面只有一颗子弹
 	//Bullet bullet = new Bullet(300, 300, Dir.DOWN);
 	//爆炸对象
 	//Explode e = new Explode(200,300, this);
-	List<Explode> explodes = new ArrayList<>(); 
+	public List<BaseExplode> explodes = new ArrayList<>(); 
+	
+	public GameFactory gf = new RectFactory();
 	
 	public TFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);

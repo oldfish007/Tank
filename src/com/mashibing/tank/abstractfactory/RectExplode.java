@@ -1,21 +1,23 @@
-package com.mashibing.tank;
+package com.mashibing.tank.abstractfactory;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import com.mashibing.tank.ResourceMgr;
+import com.mashibing.tank.TFrame;
 import com.mashibing.tank.abstractfactory.BaseExplode;
 /*
  * 区分的更严格一些就是 敌人的坏炮弹，我方的好炮弹
  */
-public class Explode extends BaseExplode{
+public class RectExplode extends BaseExplode{
 
 	private int x,y;
 	public static int width=ResourceMgr.explodes[0].getWidth();
 	public static int height=ResourceMgr.explodes[1].getHeight();
 	TFrame tFrame = null;
 	private int step=0;
-	public Explode(int x,int y,TFrame tf) {
+	public RectExplode(int x,int y,TFrame tf) {
 		this.x  = x;
 		this.y = y;
 		this.tFrame = tf;

@@ -3,10 +3,13 @@ package com.mashibing.tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import com.mashibing.tank.abstractfactory.BaseBullet;
+import com.mashibing.tank.abstractfactory.BaseTank;
 /*
  * 区分的更严格一些就是 敌人的坏炮弹，我方的好炮弹
  */
-public class Bullet {
+public class Bullet extends BaseBullet{
 
 	private static final int SPEED=8;
 	private int x,y;
@@ -38,6 +41,7 @@ public class Bullet {
 		rect.y = this.y;
 		rect.width = width;
 		rect.height = height;
+		tf.bullets.add(this);
 	}
 	
 	public void paint(Graphics g) {
@@ -91,8 +95,8 @@ public class Bullet {
 		
 		if(x<0||y<0||x>TFrame.GAME_WIDTH||y>TFrame.GAME_HEIGHT) living =false;
 	}
-
-	public void collideWith(Tank tank) {
+	@Override
+	public void collideWith(BaseTank tank) {
 		//如果我们是一波的 就不检测了退出循环
 		if(this.group==tank.getGroup()) return;
 		//TODO 用一个rect来记录子弹的位置
