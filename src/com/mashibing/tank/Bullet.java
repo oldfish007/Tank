@@ -4,25 +4,31 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import com.mashibing.tank.abstractfactory.BaseBullet;
-import com.mashibing.tank.abstractfactory.BaseTank;
+
+
 /*
  * 区分的更严格一些就是 敌人的坏炮弹，我方的好炮弹
  */
-public class Bullet extends BaseBullet{
+public class Bullet extends GameObject {
 
-	private static final int SPEED=8;
-	private int x,y;
-	public static int width=ResourceMgr.bulletD.getWidth();
-	public static int height=ResourceMgr.bulletD.getHeight();
+	private static final int SPEED = 8;
+	public static int width = ResourceMgr.bulletD.getWidth();
+	public static int height = ResourceMgr.bulletD.getHeight();
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
 	private Dir dir;
-	private boolean living = true;//子弹的生命
-	TFrame tFrame = null;
-    private Group group = Group.Bad;
-	
-	Rectangle rect = new Rectangle();
-	
-	
+	private boolean living = true;// 子弹的生命
+	public Group group = Group.Bad;
+
+	public Rectangle rect = new Rectangle();
+
 	public Group getGroup() {
 		return group;
 	}
@@ -31,28 +37,26 @@ public class Bullet extends BaseBullet{
 		this.group = group;
 	}
 
-	public Bullet(int x,int y,Dir dir,Group group,TFrame tf) {
-		this.x  = x;
+	public Bullet(int x, int y, Dir dir, Group group) {
+		this.x = x;
 		this.y = y;
-		this.dir=dir;
+		this.dir = dir;
 		this.group = group;
-		this.tFrame = tf;
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = width;
 		rect.height = height;
-		tf.bullets.add(this);
-	}
-	
-	public void paint(Graphics g) {
-		if(!living) {
-			this.tFrame.bullets.remove(this);
-		}
 		
+	}
+
+	public void paint(Graphics g) {
+		if (!living) {
+			GameModel.getINSTANCE().remove(this);
+		}
+
 		/*
-		 * Color color = g.getColor(); 
-		 * g.setColor(Color.RED);
-		 *  g.fillOval(x, y, width,height);
+		 * Color color = g.getColor(); g.setColor(Color.RED); g.fillOval(x, y,
+		 * width,height);
 		 * 
 		 */
 		switch (dir) {
@@ -70,52 +74,35 @@ public class Bullet extends BaseBullet{
 			break;
 		default:
 			break;
-	}
+		}
 		move();
 	}
 
 	private void move() {
 		// TODO Auto-generated method stub
-		switch(dir) {
-			case LEFT:
-				x-=SPEED;
-				break;
-			case RIGTHT:
-				x+=SPEED;
-				break;
-			case UP:
-				y-=SPEED;
-				break;
-			case DOWN:
-				y+=SPEED;
-				break;
+		switch (dir) {
+		case LEFT:
+			x -= SPEED;
+			break;
+		case RIGTHT:
+			x += SPEED;
+			break;
+		case UP:
+			y -= SPEED;
+			break;
+		case DOWN:
+			y += SPEED;
+			break;
 		}
 		rect.x = this.x;
 		rect.y = this.y;
-		
-		if(x<0||y<0||x>TFrame.GAME_WIDTH||y>TFrame.GAME_HEIGHT) living =false;
-	}
-	@Override
-	public void collideWith(BaseTank tank) {
-		//如果我们是一波的 就不检测了退出循环
-		if(this.group==tank.getGroup()) return;
-		//TODO 用一个rect来记录子弹的位置
-		/*
-		 * Rectangle rect1 = new Rectangle(this.x, this.y, width, height); Rectangle
-		 * rect2 = new Rectangle(tank.getX(), tank.getY(), tank.width, tank.height);
-		 */		
-		if(rect.intersects(tank.rect)) {
-			tank.die();
-			this.die();
-			int eX = tank.getX()+Tank.width/2-Explode.width/2;
-			int eY = tank.getY()+Tank.height/2-Explode.height/2;
-			//碰撞上了以后实例化一个爆炸
-			this.tFrame.explodes.add(new Explode(eX, eY, tFrame));
-		}
-		
+
+		if (x < 0 || y < 0 || x > TFrame.GAME_WIDTH || y > TFrame.GAME_HEIGHT)
+			living = false;
 	}
 
-	private void die() {
-		this.living=false;
+	
+	public void die() {
+		this.living = false;
 	}
 }

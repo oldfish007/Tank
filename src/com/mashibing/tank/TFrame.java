@@ -13,29 +13,16 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mashibing.tank.abstractfactory.BaseBullet;
-import com.mashibing.tank.abstractfactory.BaseExplode;
-import com.mashibing.tank.abstractfactory.BaseTank;
-import com.mashibing.tank.abstractfactory.DefaultFactory;
-import com.mashibing.tank.abstractfactory.GameFactory;
-import com.mashibing.tank.abstractfactory.RectFactory;
+
 
 public class TFrame extends Frame {
 
+   
+	
+
+
+	GameModel gm = GameModel.getINSTANCE();
 	public static final int GAME_WIDTH=1080,GAME_HEIGHT=960;
-    public List<BaseBullet> bullets = new ArrayList<>();
-	//主战坦克
-	Tank myTank = new Tank(200,400,Dir.DOWN,Group.Good,this);
-	//敌人的tank集合
-	public List<BaseTank> enemys = new ArrayList<>();
-	//界面类里面只有一颗子弹
-	//Bullet bullet = new Bullet(300, 300, Dir.DOWN);
-	//爆炸对象
-	//Explode e = new Explode(200,300, this);
-	public List<BaseExplode> explodes = new ArrayList<>(); 
-	
-	public GameFactory gf = new RectFactory();
-	
 	public TFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);
 		setResizable(false);
@@ -57,36 +44,12 @@ public class TFrame extends Frame {
  *每paint 就重绘一次
  *根据坦克的方向进行坦克的移动
  */
+	
 	@Override
 	public void paint(Graphics g) {
-	
-		Color color = g.getColor();
-		g.setColor(Color.white);
-		g.drawString("子弹的数量"+bullets.size(), 10, 60);
-		g.drawString("敌人的数量"+enemys.size(), 10, 80);
-		g.drawString("爆炸的数量"+explodes.size(), 10, 100);
-		g.setColor(color);
-		myTank.paint(g);
-		//画出敌人坦克
-		for (int i = 0; i < enemys.size(); i++) {
-			enemys.get(i).paint(g);
-		}
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).paint(g);
-		}
-		for (int i = 0; i < explodes.size(); i++) {
-			explodes.get(i).paint(g);
-		}
-		
-		//碰撞
-		for (int i = 0; i < bullets.size(); i++) {
-			for(int j=0;j<enemys.size();j++) {
-				bullets.get(i).collideWith(enemys.get(j));
-			}
-		}
-		
+		// TODO Auto-generated method stub
+		gm.paint(g);
 	}
-	
 /**
  * 根据按键的状态用4个bool值记录下来	
  * @author zxh
@@ -140,7 +103,7 @@ public class TFrame extends Frame {
 				bD = true;
 				break;
 			case KeyEvent.VK_CONTROL:
-				myTank.fire();
+				gm.myTank.fire();
 				break;
 			default:
 				break;
@@ -176,6 +139,7 @@ public class TFrame extends Frame {
 //根据按键的状态改变坦克的方向
 //刚开始是静止的 按下去才走		
 		private void setMainTankDir() {
+			Tank myTank = gm.getMyTank();
 			//坦克静止
 			if(!bL && !bU && !bR && !bD) myTank.setMoving(false);
 			else {
