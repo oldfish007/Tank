@@ -13,7 +13,6 @@ public class TankWallCollider implements Collider{
 			Tank t = (Tank)o1;
 			Wall w = (Wall)o2;
 			if(t.group==Group.Bad) {
-				
 				if(t.rect.intersects(w.rect)) {
 					//t.die();
 					t.back();

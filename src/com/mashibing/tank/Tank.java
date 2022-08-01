@@ -72,6 +72,7 @@ public class Tank extends GameObject {
 		} else {
 			fs = new DefaultFireStrategy();
 		}
+		 GameModel.getINSTANCE().add(this);
 	}
 
 	public Dir getDir() {
@@ -85,23 +86,23 @@ public class Tank extends GameObject {
 	public void paint(Graphics g) {
 		if (!living)
 			GameModel.getINSTANCE().remove(this);
-		switch (dir) {
-		case LEFT:
-			g.drawImage(this.group == Group.Good ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
-			break;
-		case UP:
-			g.drawImage(this.group == Group.Good ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
-			break;
-		case DOWN:
-			g.drawImage(this.group == Group.Good ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
-			break;
-		case RIGTHT:
-			g.drawImage(this.group == Group.Good ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
-			break;
-		default:
-			break;
-		}
-		move();
+			switch (dir) {
+			case LEFT:
+				g.drawImage(this.group == Group.Good ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
+				break;
+			case UP:
+				g.drawImage(this.group == Group.Good ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(this.group == Group.Good ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
+				break;
+			case RIGTHT:
+				g.drawImage(this.group == Group.Good ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
+				break;
+			default:
+				break;
+			}
+			move();
 	}
 
 	private void move() {

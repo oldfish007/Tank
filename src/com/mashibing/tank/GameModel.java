@@ -12,11 +12,11 @@ import com.mashibing.tank.cor.ColliderChain;
  * 界面曾需要什么找GameModel去要
  */
 public class GameModel {
-
-	private static GameModel INSTANCE = new GameModel();
-	// List<Bullet> bullets = new ArrayList<>();
-		// List<Tank> tanks = new ArrayList<>();
-		// List<Explode> explodes = new ArrayList<>();
+    //饿汉式
+	private static final GameModel INSTANCE = new GameModel();
+	  // List<Bullet> bullets = new ArrayList<>();
+	  // List<Tank> tanks = new ArrayList<>();
+	  // List<Explode> explodes = new ArrayList<>();
 	private List<GameObject> objects = new ArrayList<>();
 	
 	static {
@@ -35,13 +35,14 @@ public class GameModel {
 	
 	public void init() {
 		//初始化主战坦克
-		//主战坦克
-	    myTank = new Tank(200,400,Dir.DOWN,Group.Good);
+		//主战坦克 这里主战坦克new 出来也加进去
+		//这里new tank的构造方法里面又做了一遍gameModel.getInstance()循环调用了
+	   myTank = new Tank(200,400,Dir.DOWN,Group.Good);
 	    int count = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
 		//初始化敌人坦克
 		for (int i = 0; i < count; i++) {
 			//tf.enemys.add(tf.gf.createTank(50+i*50, 200, Dir.DOWN,Group.Bad, tf));'
-			add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.Bad));
+			new Tank(50 + i * 80, 200, Dir.DOWN, Group.Bad);
 		}
 		
 		//初始化枪
@@ -76,7 +77,7 @@ public class GameModel {
 		 */
 		g.setColor(color);
 		myTank.paint(g);
-		//画出敌人坦克
+		//画出所有物体
 		for (int i = 0; i <objects.size(); i++) {
 			objects.get(i).paint(g);
 		}
