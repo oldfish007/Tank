@@ -4,8 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
+import com.mashibing.tank.observer.TankFireEvent;
+import com.mashibing.tank.observer.TankFireHandler;
+import com.mashibing.tank.observer.TankFireObserver;
 import com.mashibing.tank.strategy.DefaultFireStrategy;
 import com.mashibing.tank.strategy.FireStrategy;
 
@@ -24,6 +29,7 @@ public class Tank extends GameObject {
 	public Group group  = Group.Bad;
 	
 	public Rectangle rect = new Rectangle();
+	FireStrategy fs;
 	
 	public  int getWidth() {
 		return width;
@@ -33,7 +39,6 @@ public class Tank extends GameObject {
 		return height;
 	}
 
-	FireStrategy fs;
 
 	public Group getGroup() {
 		return group;
@@ -192,6 +197,16 @@ public class Tank extends GameObject {
 	public void die() {
 		// TODO Auto-generated method stub
 		this.living = false;
+	}
+	
+	private List<TankFireObserver> fireObserver = Arrays.asList(new TankFireHandler());
+	
+	public void handlerFireKey() {
+		//事件传给观察者，由事件源通知观察者这里就是handler
+		TankFireEvent event = new TankFireEvent(this);
+		for (TankFireObserver observer:fireObserver) {
+			observer.actinoForm(event);
+		}
 	}
 
 }

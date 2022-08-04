@@ -47,6 +47,8 @@ public class Bullet extends GameObject {
 		rect.width = width;
 		rect.height = height;
 		
+		GameModel.getINSTANCE().add(this);
+		
 	}
 
 	public void paint(Graphics g) {

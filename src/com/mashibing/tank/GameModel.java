@@ -53,6 +53,10 @@ public class GameModel {
 		
 	}
 	
+	public Tank getMainTank() {
+		return myTank;
+	}
+	
 	public static GameModel getINSTANCE() {
 		return INSTANCE;
 	}

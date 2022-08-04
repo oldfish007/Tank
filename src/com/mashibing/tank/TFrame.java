@@ -17,10 +17,6 @@ import java.util.List;
 
 public class TFrame extends Frame {
 
-   
-	
-
-
 	GameModel gm = GameModel.getINSTANCE();
 	public static final int GAME_WIDTH=1080,GAME_HEIGHT=960;
 	public TFrame() {
@@ -71,9 +67,6 @@ public class TFrame extends Frame {
 		paint(gOffScreen);
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
-
-	
-	
 	
 	class MyKeyListener extends KeyAdapter{
 		boolean bL = false;
@@ -103,7 +96,7 @@ public class TFrame extends Frame {
 				bD = true;
 				break;
 			case KeyEvent.VK_CONTROL:
-				gm.myTank.fire();
+				gm.myTank.handlerFireKey();;
 				break;
 			default:
 				break;
@@ -143,7 +136,6 @@ public class TFrame extends Frame {
 			//坦克静止
 			if(!bL && !bU && !bR && !bD) myTank.setMoving(false);
 			else {
-				
 				myTank.setMoving(true);
 				if(bL) myTank.setDir(Dir.LEFT);
 				if(bR) myTank.setDir(Dir.RIGTHT);
@@ -152,7 +144,6 @@ public class TFrame extends Frame {
 			}
 			
 		}
-		
 		
 	}
 	

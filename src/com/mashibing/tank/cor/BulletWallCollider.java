@@ -20,7 +20,7 @@ public class BulletWallCollider implements Collider{
 				b.die();
 				int eX = b.x;
 				int eY = b.y;
-				GameModel.getINSTANCE().add(new Explode(eX, eY));
+				new Explode(eX, eY);
 			}
 		}else if(o1 instanceof Wall && o2 instanceof Bullet) {
 			return collide(o2,o1);
